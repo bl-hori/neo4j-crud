@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { NavigationAlert } from '../../../components';
 import { Content } from './Content';
 
 export const List = () => {
@@ -15,7 +17,13 @@ export const List = () => {
                         placeholder="Search by movie title or person name..."
                     />
                 </div>
+                <div>
+                    <Link to="new" className="button primary">
+                        Create Movie
+                    </Link>
+                </div>
             </div>
+            <NavigationAlert />
             <Content search={search} />
         </div>
     )
