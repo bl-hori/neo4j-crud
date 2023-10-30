@@ -1,20 +1,18 @@
-import { movies } from '@neo4j-crud/graph';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
-import neo4j from 'neo4j-driver';
+import { errorHandler } from './middleware/errorHandler';
+import { neo4jSession } from './middleware/neo4jSession';
+import routers from './routes';
 
 const app = express();
 const port = process.env.PORT || 3333;
 
-
-app.get('/movies', async (req, res) => {
-  const auth = neo4j.auth.basic('', '');
-  const config = { disableLosslessIntegers: true };
-  const session = neo4j.driver('bolt://localhost:7687', auth, config).session();
-  const records = await movies(session).getAll();;
-  await session.close();
-
-  res.send(records);
-});
+app.use(bodyParser.json());
+app.use(cors());
+app.use(neo4jSession);
+app.use(routers);
+app.use(errorHandler);
 
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
