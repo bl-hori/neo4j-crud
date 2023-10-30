@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Header } from '../components';
 import { Movies } from '../pages/movies';
 import { People } from '../pages/people';
+import { ShortestPath } from '../pages/shortest-path';
 import { Visualization } from '../pages/visualization';
 
 export function App() {
@@ -14,6 +15,8 @@ export function App() {
         <Route path="/movies/*" element={<Movies />} />
         <Route path="/people/*" element={<People />} />
         <Route path="/visualization/*" element={<Visualization />} />
+        <Route path="/shortest-path/*" element={<ShortestPath />} />
+
       </Routes>
     </div>
   );
