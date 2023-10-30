@@ -33,4 +33,24 @@ export const movies = (session: Session) => ({
         return records.pop();
     },
 
+    update: async (id: number, movie: Movie) => {
+        const result = await session.run<MoviesQueryResult>(queries.update, {
+          id,
+          movie,
+        });
+
+        const records = result.records.map((record) => record.get('movie'));
+
+        return records.pop();
+      },
+
+      remove: async (id: number) => {
+        const result = await session.run<MoviesQueryResult>(queries.remove, {
+          id,
+        });
+
+        const records = result.records.map((record) => record.get('movie'));
+
+        return records.pop();
+      },
 });
