@@ -26,6 +26,7 @@ const PageButton: React.FC<PageButtonProps> = ({ item: { path, label } }) => {
 export const Header: React.FC = () => {
     const navItems: NavItem[] = [
         { path: '/movies', label: 'Movies' },
+        { path: '/people', label: 'People' },
     ];
 
     return (
