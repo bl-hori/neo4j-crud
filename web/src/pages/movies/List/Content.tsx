@@ -1,6 +1,7 @@
 import { AxiosApiError, Movie } from '@neo4j-crud/shared';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { AlertCombo } from '../../../components';
 import { useDebounce } from '../../../hooks';
 import { Item } from './Item';
 
@@ -18,16 +19,10 @@ export const Content: React.FC<ContentProps> = ({ search }) => {
         () => axios.get<Movie[]>(`${url}?search=${search}`).then((res) => res.data)
     );
 
-    if (error) {
-        return <div>{error.message}</div>;
-    }
+    const noData = !data || data.length === 0;
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!data) {
-        return <div>No data</div>;
+    if (error || isLoading || noData) {
+        return <AlertCombo error={error} isLoading={isLoading} noData={noData} />;
     }
 
     return (
